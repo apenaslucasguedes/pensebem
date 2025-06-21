@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pense bem</title>
+  <link rel="icon" type="image/png" href="foto-perfil-tatudobemmae.png">
+  <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      font-family: 'Tagesschrift', sans-serif;
+      transition: background-color 0.5s ease;
+    }
+    #inicial {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Tagesschrift', sans-serif;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    #legenda {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+    }
+    #imagem {
+      margin-top: 60px;
+      margin-bottom: 60px;
+      width: 80vw;
+      max-width: 400px;
+      aspect-ratio: 4 / 5;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+    #poema {
+      margin-top: 0;
+      margin-bottom: 60px;
+      max-width: 600px;
+      padding: 0 20px;
+      text-align: left;
+      font-size: 16px;
+      line-height: 2;
+      color: #000;
+      box-sizing: border-box;
+    }
+    #poema span {
+      display: block;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    #poema span.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #poema span.paragrafo {
+      margin-top: 20px;
+    }
+    #assinatura {
+      width: 40px;
+      height: auto;
+      margin-bottom: 60px;
+    }
+    .conteudo {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div id="inicial">
+    <button id="botao" onclick="ativar()">clique aqui</button>
+    <div id="legenda">sem volta</div>
+  </div>
+
+  <div class="conteudo" id="conteudo">
+    <img id="imagem" src="mi-amor_matheus.jpg" alt="Imagem surpresa">
+    <div id="poema">
+      <span class="paragrafo">me senti amado pela primeira vez e estranhei.</span>
+      <span>achei que fosse truque, que no meio do carinho viria a cobrança.</span>
+      <span>mas não.</span>
+      <span>ele me tocou e não quis nada em troca.</span>
+      <span>me olhou como se eu não precisasse provar nada.</span>
+      <span>a dança dele tem um tipo de feitiço, um movimento que bagunça o ar e me deixa tonto.</span>
+      <span>mas não quero cura. quero a febre.</span>
+
+      <span class="paragrafo">não é só beleza, é presença.</span>
+      <span>uma energia que chega antes dele.</span>
+      <span>um arrepio que me percorre mesmo quando ele está longe.</span>
+      <span>e eu, que sempre fui o tipo que se protegía de tudo, me pego querendo ser eletrocutado.</span>
+      <span>sem luvas, sem defesa.</span>
+      <span>só o choque bom de alguém que chegou e ficou.</span>
+
+      <span class="paragrafo">nos encontramos por acaso, mas o jeito que ele me olha carrega décadas.</span>
+      <span>como se a gente se reconhecesse de uma lembrança que não é daqui.</span>
+      <span>tem toque que parece casa, tem silêncio que preenche.</span>
+      <span>e eu, que sempre tive medo de ser muito, dessa vez quero ser inteiro.</span>
+      <span>não sei onde isso vai dar,</span>
+      <span>mas se for pra me perder, que seja no caminho até ele.</span>
+    </div>
+    <img id="assinatura" src="foto-perfil-tatudobemmae.png" alt="Assinatura">
+  </div>
+
+  <audio id="audio" src="Imagine 'Daylight' by Taylor Swift as a Wedding Entrance.mp3"></audio>
+
+  <script>
+    function ativar() {
+      const audio = document.getElementById('audio');
+      audio.currentTime = 25;
+      audio.play();
+
+      document.getElementById('conteudo').style.display = 'flex';
+      document.getElementById('inicial').style.display = 'none';
+      document.body.style.backgroundColor = '#f5ebe0';
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      document.querySelectorAll('#poema span').forEach(span => {
+        observer.observe(span);
+      });
+    }
+  </script>
+</body>
+</html>
